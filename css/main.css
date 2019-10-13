@@ -1,0 +1,98 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Big Shoulders Display", cursive;
+  font-size: 20px;
+}
+
+.category-page-handler {
+  height: 50px;
+  width: 50px;
+  position: fixed;
+  top: 1em;
+  left: 1em;
+  padding: 10px;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  z-index: 2;
+  background-color: #b14320;
+  transform: rotate(45deg);
+}
+
+.category-page-handler-red {
+  transform: rotate(0);
+}
+
+#category-maintenance {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  min-height: 100vh;
+  background-image: url("assets/cubes.png");
+  background-size: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  letter-spacing: 1.1px;
+  z-index: 1;
+}
+#category-maintenance #category-form {
+  margin-top: 6em;
+  display: flex;
+  flex-direction: column;
+}
+#category-maintenance #category-form input, #category-maintenance #category-form button {
+  width: 300px;
+  padding: 0.75em;
+  margin: 0.5em;
+  opacity: 0.7;
+  border: none;
+}
+#category-maintenance #category-list {
+  padding: 0;
+  list-style: none;
+  color: white;
+}
+#category-maintenance #category-list .category-listing {
+  width: 300px;
+  height: 45px;
+  padding: 0.5em;
+  background-color: #b14320;
+  margin: 8px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  opacity: 0.8;
+  transition: 0.4s;
+  border: 1px solid transparent;
+}
+#category-maintenance #category-list .category-listing .category-color {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  margin-right: 1em;
+}
+#category-maintenance #category-list .category-listing:hover {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+}
+#category-maintenance #category-list .category-listing .category-edit {
+  margin-right: 6px;
+}
+#category-maintenance #category-list .category-listing .category-edit,
+#category-maintenance #category-list .category-listing .category-delete img {
+  height: 1em;
+  width: 1em;
+  display: inline-block;
+  transition: 0.15s;
+}
+#category-maintenance #category-list .category-listing .category-edit:hover,
+#category-maintenance #category-list .category-listing .category-delete img:hover {
+  transform: scale(1.1);
+}
+
+/*# sourceMappingURL=main.css.map */
