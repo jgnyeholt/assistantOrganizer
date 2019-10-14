@@ -41,6 +41,7 @@ function getCategoryList(){
         listContainer.innerHTML = this.responseText;
         //After category list is loaded, add listeners
         categoryDeleteListener();
+        categoryUpdateListener();
     } //end if statement
   } //end ready state change function
   httpRequest.open('GET', 'includes/categoryList.php', true);
@@ -78,30 +79,107 @@ function createCategory(){
 }
 
 //============================================================================
-//Delete create Catgory
+//UPDATE  Catgory
+//============================================================================
+function categoryUpdateListener(){
+  const updateCategoryButton = document.getElementsByClassName("category-edit");
+  let editButtonArray = makeArray(updateCategoryButton);
+    editButtonArray.forEach((button) => {
+      button.addEventListener("click", ()=>{
+        let id = button.dataset.categoryid;
+        getEditCategory(id);
+      });
+    });
+
+}
+
+function getEditCategory(id){
+  const updateCategoryButton = document.getElementsByClassName("category-edit");
+  let editButtonArray = makeArray(updateCategoryButton);
+  //DOM traversal to locate and select parent element of category to be edited
+  let parentElement;
+  for(let i = 0; i < editButtonArray.length; i++){
+    if(editButtonArray[i].dataset.categoryid === id){
+      console.log(editButtonArray[i].parentElement.parentElement);
+      parentElement = editButtonArray[i].parentElement.parentElement;
+    }
+  }
+  console.log(parentElement);
+  //AJAX Request
+  let httpRequest = new XMLHttpRequest();
+  let data = "category_id=" + id;
+  console.log(data);
+  httpRequest.open("GET", "ajaxPages/getEditCategory.php?" + data, true);
+  httpRequest.onreadystatechange = function(){
+    if(this.readyState == 4 && this.status == 200){
+      console.log("hello");
+      parentElement.innerHTML = this.responseText;
+      parentElement.style.height = "auto";
+      editCategoryFormListener();
+    }
+  }
+  httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded", true);
+  httpRequest.send();
+}
+
+function editCategoryFormListener(){
+  const editCategoryForm = document.getElementById("updateCategoryForm");
+  editCategoryForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    console.log(e.target);
+    postUpdatedCategory();
+  });
+  editCategoryForm.addEventListener("reset", () => {
+    getCategoryList();
+  });
+}
+
+function postUpdatedCategory(){
+  let catId = document.getElementById("editCatID");
+  let editCatName = document.getElementById("editCatName");
+  let editCatColor = document.getElementById("editCatColor");
+
+  let httpRequest = new XMLHttpRequest();
+  let data = "category_id=" + catId.value +
+             "&category_name=" + editCatName.value +
+             "&category_color=" + editCatColor.value;
+  console.log(data);
+  httpRequest.open("POST", "ajaxPages/postEditCategory.php", true);
+  httpRequest.onreadystatechange = function(){
+    if(this.readyState == 4 && this.status == 200){
+      getCategoryList();
+      console.log(this.responseText);
+    }
+  }
+  httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded", true);
+  httpRequest.send(data);
+}
+
+//============================================================================
+//DELETE  Catgory
 //============================================================================
 function categoryDeleteListener(){
   const deleteCategoryButton = document.getElementsByClassName("category-delete") ;
-  let deleteButtonArray = makeArray(deleteCategoryButton);
-  let firstTime = false;
-  deleteButtonArray.forEach((button) => {
-    button.addEventListener("click", ()=>{
-      let id = button.dataset.categoryid;
-      deleteCategory(id);
+    let deleteButtonArray = makeArray(deleteCategoryButton);
+  //  let firstTime = false;
+    deleteButtonArray.forEach((button) => {
+      button.addEventListener("click", ()=>{
+        let id = button.dataset.categoryid;
+        deleteCategory(id);
     });
   }); //end adding listener
-  firstTime = true;
+//  firstTime = true;
 }
 
 function deleteCategory(id){
-  httpRequest = new XMLHttpRequest();
+  let httpRequest = new XMLHttpRequest();
   let data = "category_id=" + id;
   httpRequest.open("POST", "ajaxPages/deleteCategory.php", true);
   httpRequest.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       getCategoryList();
     }
-  };
+  }
   httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded", true);
   httpRequest.send(data);
 }

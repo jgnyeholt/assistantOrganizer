@@ -13,9 +13,8 @@ $(".category-page-handler").hover(function(){
 });
 //Remove Page
 $(".category-page-handler").click(function(){
-  $("#category-maintenance").slideToggle("slow");
+  $("#category-maintenance").fadeToggle("slow");
   $(this).toggleClass("category-page-handler-red");
-
 });
 // ===================================================
 // Category Create Button

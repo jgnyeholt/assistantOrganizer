@@ -15,7 +15,7 @@
       <span><?php echo $category_name; ?></span>
     </div>
     <div>
-      <a class="category-tool" data-categoryid="<?php echo $category_id;?>"><img class="category-edit" src="css/assets/edit.png" alt="Edit" ></a>
+      <a class="category-edit" data-categoryid="<?php echo $category_id;?>"><img class="" src="css/assets/edit.png" alt="Edit" ></a>
       <a class="category-delete" data-categoryid="<?php echo $category_id;?>"><img class="" src="css/assets/delete.png" alt="Delete"></a>
     </div>
   </li>

@@ -83,14 +83,14 @@ body {
 #category-maintenance #category-list .category-listing .category-edit {
   margin-right: 6px;
 }
-#category-maintenance #category-list .category-listing .category-edit,
+#category-maintenance #category-list .category-listing .category-edit img,
 #category-maintenance #category-list .category-listing .category-delete img {
   height: 1em;
   width: 1em;
   display: inline-block;
   transition: 0.15s;
 }
-#category-maintenance #category-list .category-listing .category-edit:hover,
+#category-maintenance #category-list .category-listing .category-edit img:hover,
 #category-maintenance #category-list .category-listing .category-delete img:hover {
   transform: scale(1.1);
 }

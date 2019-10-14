@@ -3,7 +3,7 @@
     global $connection;
     if(!$result){
         die("QUERY FAILED " . mysqli_error($connection));
-    } 
+    }
   }
 
   function test_input($data){
@@ -23,4 +23,4 @@
     return $data;
   }
 
- ?>
+?>
