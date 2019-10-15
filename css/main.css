@@ -19,17 +19,28 @@ body {
   z-index: 2;
   background-color: #b14320;
   transform: rotate(45deg);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  opacity: 0.6;
 }
 
-.category-page-handler-red {
+.category-page-handler-rotate {
   transform: rotate(0);
 }
 
+#editCatName,
+#editCatColor {
+  width: 100%;
+  padding: 0.4em;
+  margin: 0.5em 0;
+  opacity: 0.7;
+  border: none;
+}
+
 #category-maintenance {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
   background-image: url("assets/cubes.png");
   background-size: auto;
@@ -93,6 +104,48 @@ body {
 #category-maintenance #category-list .category-listing .category-edit img:hover,
 #category-maintenance #category-list .category-listing .category-delete img:hover {
   transform: scale(1.1);
+}
+
+#recipeContainer {
+  padding: 6em;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 100%;
+}
+
+#NewRecipeForm {
+  display: flex;
+  flex-direction: column;
+}
+#NewRecipeForm .flex-column {
+  display: flex;
+  flex-direction: column;
+}
+#NewRecipeForm .flex-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+#NewRecipeForm input[type=text],
+#NewRecipeForm textarea,
+#NewRecipeForm select {
+  width: 300px;
+  margin: 0.25em;
+  padding: 0.45em;
+}
+#NewRecipeForm #recipeIngredientList {
+  display: flex;
+  flex-direction: column;
+}
+#NewRecipeForm .addData {
+  text-align: center;
+}
+
+#addRecipeButton {
+  position: relative;
+  z-index: 1;
 }
 
 /*# sourceMappingURL=main.css.map */

@@ -1,5 +1,5 @@
-<?php include "../includes/db.php"; ?>
-<?php include "../includes/functions.php" ?>
+<?php include "../../includes/db.php"; ?>
+<?php include "../../includes/functions.php" ?>
 
 <?php
 // if(isset($_POST)){

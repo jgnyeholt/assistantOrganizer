@@ -1,5 +1,5 @@
-<?php include "../includes/db.php"; ?>
-<?php include "../includes/functions.php" ?>
+<?php include "../../includes/db.php"; ?>
+<?php include "../../includes/functions.php" ?>
 
 <?php
   $category_id = $_GET["category_id"];
@@ -13,10 +13,10 @@
     $category_color = decode_data($row['category_color']);
   ?>
   <form id="updateCategoryForm" action="" method="">
-    <input id="editCatID" value="<?php echo $category_id; ?>" disabled/>
+    <input id="editCatID" value="<?php echo $category_id; ?>" disabled hidden/>
     <input id="editCatName" value="<?php echo $category_name; ?>"/>
     <input id="editCatColor" value="<?php echo $category_color; ?>" />
-    <div>
+    <div class="editCatBtns">
       <button type="submit">Save</button>
       <button type="reset">Cancel</button>
     </div>

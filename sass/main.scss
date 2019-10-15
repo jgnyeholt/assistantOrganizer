@@ -34,16 +34,30 @@ body{
   z-index: 2;
   background-color: $color-category-darkorange;
   transform: rotate(45deg);
+  box-shadow: 0 5px 10px rgba(0,0,0,.3);
+  opacity: .6;
 }
-.category-page-handler-red{
+.category-page-handler-rotate{
   transform: rotate(0);
 }
 
+#editCatName,
+#editCatColor,
+{
+  width: 100%;
+  padding: .4em;
+  margin: .5em 0;
+  opacity: .7;
+  border: none;
+}
+
+
 #category-maintenance{
-  position: fixed;
+//  position: fixed;
+  position: absolute;
   top:0;
   left:0;
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
   background-image:url("assets/cubes.png");
   background-size:auto;
@@ -107,3 +121,45 @@ body{
     } //end category listing
   } //end categorylist
 } //end cateogry maintenance
+
+#recipeContainer{
+  padding: 6em;
+  position: absolute;
+  top: 0;
+  left:0;
+  z-index: 0;
+  width: 100%;
+}
+
+#NewRecipeForm {
+  display: flex;
+  flex-direction: column;
+  .flex-column{
+    display: flex;
+    flex-direction: column;
+  }
+  .flex-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  input[type=text],
+  textarea,
+  select {
+    width: 300px;
+    margin: .25em;
+    padding: .45em;
+  }
+  #recipeIngredientList{
+    display: flex;
+    flex-direction: column;
+  }
+  .addData{
+    text-align: center;
+  }
+}
+
+#addRecipeButton{
+  position: relative;
+  z-index: 1;
+}

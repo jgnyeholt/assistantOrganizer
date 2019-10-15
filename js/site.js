@@ -22,7 +22,19 @@
 document.addEventListener("DOMContentLoaded", () =>{
   getCategoryList();
   categoryAdd();
+  recipeInit();
 });
+
+//===========================================================================================
+//===========================================================================================
+//===========================================================================================
+//===========================================================================================
+//===========================================================================================
+//===========================================================================================
+//===========================================================================================
+//===========================================================================================
+//RECIPES
+//CATEGORIES
 
 
 //============================================================================
@@ -66,7 +78,7 @@ function createCategory(){
   const catColor = document.getElementById("category-color");
   httpRequest = new XMLHttpRequest();
   let data = "category_name=" + catName.value + "&category_color=" + catColor.value;
-  httpRequest.open("POST", "ajaxPages/createCategory.php", true);
+  httpRequest.open("POST", "ajaxPages/category/createCategory.php", true);
   httpRequest.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       getCategoryList();
@@ -109,7 +121,7 @@ function getEditCategory(id){
   let httpRequest = new XMLHttpRequest();
   let data = "category_id=" + id;
   console.log(data);
-  httpRequest.open("GET", "ajaxPages/getEditCategory.php?" + data, true);
+  httpRequest.open("GET", "ajaxPages/category/getEditCategory.php?" + data, true);
   httpRequest.onreadystatechange = function(){
     if(this.readyState == 4 && this.status == 200){
       console.log("hello");
@@ -144,7 +156,7 @@ function postUpdatedCategory(){
              "&category_name=" + editCatName.value +
              "&category_color=" + editCatColor.value;
   console.log(data);
-  httpRequest.open("POST", "ajaxPages/postEditCategory.php", true);
+  httpRequest.open("POST", "ajaxPages/category/postEditCategory.php", true);
   httpRequest.onreadystatechange = function(){
     if(this.readyState == 4 && this.status == 200){
       getCategoryList();
@@ -174,7 +186,7 @@ function categoryDeleteListener(){
 function deleteCategory(id){
   let httpRequest = new XMLHttpRequest();
   let data = "category_id=" + id;
-  httpRequest.open("POST", "ajaxPages/deleteCategory.php", true);
+  httpRequest.open("POST", "ajaxPages/category/deleteCategory.php", true);
   httpRequest.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       getCategoryList();
@@ -194,4 +206,172 @@ function makeArray(element){
     array.push(element[i]);
   }
   return array;
+}
+
+//===========================================================================================
+//===========================================================================================
+//===========================================================================================
+//===========================================================================================
+//===========================================================================================
+//===========================================================================================
+//===========================================================================================
+//===========================================================================================
+//RECIPES
+
+function recipeInit(){
+  // createRecipeForm();
+  // addNewRecipeFormData();
+  // saveRecipe();
+  // addIngredients();
+  addNewRecipeListener();
+}
+
+function addNewRecipeListener(){
+  const button = document.getElementById("addRecipeButton");
+
+  button.addEventListener("click", ()=>{
+    createRecipeForm();
+    addNewRecipeFormData();
+    saveRecipe();
+    addIngredients();
+  });
+}
+
+function createRecipeForm(){
+  const recipeContainer = document.getElementById("recipeContainer");
+  recipeContainer.innerHTML = `
+    <form id="NewRecipeForm">
+      <div class="flex-column">
+        <input id="recipeName" type="text" placeholder="Recipe Name"/>
+        <div class="recipeFormCategories">
+          <select id="recipeCategory">
+          </select>
+        </div>
+        <div class="recipeFormData">
+          <input id="prepTime" type="text" placeholder="Prep Time" />
+          <input id="cookTime" type="text" placeholder="Cook Time" />
+          <input id="ovenTemp" type="text" placeholder="Oven Temp"/>
+        </div>
+        <div class="recipeFormDescription">
+          <textarea id="description" placeholder="Description"></textarea>
+          <input type="checkbox" id="descriptionDisplay"/>
+          <label for="descriptionDisplay">Show on Thumbnail</label>
+          <input type="checkbox" id="favoritesDisplay"/>
+          <label for="favoritesDisplay">This is a Favorite</label>
+        </div>
+      </div>
+      <div class="flex-row">
+        <div class="recipeFormIngredient">
+          <div id="recipeIngredientList">
+           <input class="ingredient" type="text" placeholder="...add ingredient" />
+          </div>
+          <div id="addIngredientInput">+</div>
+        </div>
+        <div class="recipeFormInstructions">
+          <input id="instructions" type="text" placeholder="...add step to instructions"/>
+        </div>
+      </div>
+      <div class="recipeFormNotes">
+        <textarea id="notes" placeholder="Notes"></textarea>
+      </div>
+      <button type="submit">Save New Recipe</button>
+    </form>
+  `;
+
+}
+
+function addNewRecipeFormData(){
+  const recipeCategories = document.getElementById("recipeCategory");
+  httpRequest = new XMLHttpRequest();
+  let data = "";
+  httpRequest.open("GET", "ajaxPages/recipe/getCategories.php", true);
+  httpRequest.onreadystatechange = function(){
+    if(this.readyState == 4 && this.status == 200){
+      recipeCategories.innerHTML = this.responseText;
+    }
+  }
+  httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded", true);
+  httpRequest.send();
+}
+
+function saveRecipe(){
+  const recipeForm = document.getElementById("NewRecipeForm");
+
+  let recipeName = document.getElementById("recipeName");
+  let recipeCategory = document.getElementById("recipeCategory");
+  let recipePrepTime = document.getElementById("prepTime");
+  let recipeCookTime = document.getElementById("cookTime");
+  let recipeOvenTemp = document.getElementById("ovenTemp");
+  let recipeDescription = document.getElementById("description");
+  let recipeDescriptionDisplay = document.getElementById("descriptionDisplay");
+  let recipeFavorite = document.getElementById("favoritesDisplay");
+  let recipeIngredients = "";
+  let recipeInstructions = document.getElementById("instructions");
+  let recipeNotes = document.getElementById("notes");
+
+
+  recipeForm.addEventListener("submit", (e) => {
+    recipeIngredients = compileIngredients();
+    e.preventDefault();
+    console.log(recipeDescriptionDisplay.checked, recipeFavorite.checked);
+    httpRequest = new XMLHttpRequest();
+    let data = "recipeName=" + recipeName.value +
+               "&recipeCategory=" + recipeCategory.value +
+               "&recipePrepTime=" + recipePrepTime.value +
+               "&recipeCookTime=" + recipeCookTime.value +
+               "&recipeOvenTemp=" + recipeOvenTemp.value +
+               "&recipeDescription=" + recipeDescription.value +
+               "&recipeDescriptionDisplay=" + recipeDescriptionDisplay.checked +
+               "&recipeFavorite=" + recipeFavorite.checked +
+               "&recipeIngredients=" + recipeIngredients +
+               "&recipeInstructions=" + recipeInstructions.value +
+               "&recipeNotes=" + recipeNotes.value;
+
+    httpRequest.open("POST", "ajaxPages/recipe/addRecipe.php", true);
+    httpRequest.onreadystatechange = function(){
+      if(this.readyState == 4 && this.status == 200){
+        console.log("it worked");
+        recipeName.value = "";
+        recipeCategory.value = "";
+        recipePrepTime.value = "";
+        recipeCookTime.value = "";
+        recipeOvenTemp.value = "";
+        recipeDescription.value = "";
+        recipeDescriptionDisplay.value = "";
+        recipeFavorite.value = "";
+        recipeIngredients.value = "";
+        recipeInstructions.value = "";
+        recipeNotes.value = "";
+      }
+    }
+    httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded", true);
+    httpRequest.send(data);
+  });
+
+
+}
+
+function addIngredients(){
+  const ingredientAddInput = document.getElementById("addIngredientInput");
+  ingredientAddInput.addEventListener("click", ()=>{
+    const ingredientList = document.getElementById("recipeIngredientList");
+    console.log("click");
+    let newInput = document.createElement("input");
+    newInput.className = "ingredient";
+    newInput.placeholder = "...add another ingredient";
+    newInput.type = "text";
+
+    ingredientList.appendChild(newInput);
+
+  });
+}
+
+function compileIngredients(){
+  let ingredients = document.getElementsByClassName("ingredient");
+  let ingredientString = "";
+  for(let i = 0; i < ingredients.length; i++){
+    ingredientString += (ingredients[i].value + ';');
+    console.log(ingredientString);
+  }
+  return ingredientString;
 }

@@ -1,5 +1,5 @@
-<?php include "../includes/db.php"; ?>
-<?php include "../includes/functions.php" ?>
+<?php include "../../includes/db.php"; ?>
+<?php include "../../includes/functions.php" ?>
 
 <?php
   echo $_POST['category_id'];

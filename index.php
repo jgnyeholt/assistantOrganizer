@@ -1,6 +1,7 @@
 <?php
   include "includes/header.php";
   include "includes/categoryMaintenance.php";
+  include "includes/recipeMaintenance.php";
 ?>
 
 
