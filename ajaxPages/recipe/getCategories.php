@@ -1,7 +1,7 @@
 <?php include "../../includes/db.php"; ?>
 <?php include "../../includes/functions.php" ?>
 
-<option></option>
+<option>Select a Category</option>
 
 <?php
 $query = "SELECT * FROM category ";

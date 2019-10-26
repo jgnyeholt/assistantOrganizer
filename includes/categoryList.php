@@ -1,5 +1,11 @@
 <?php include "db.php"; ?>
 <?php include "functions.php" ?>
+  <li class="category-listing">
+    <div>
+      <span class="category-color" style=""></span>
+      <span class="CategoryName" data-categoryname="all">All Recipes</span>
+    </div>
+  </li>
 <?php
   $query = "SELECT * FROM category ";
   $query .= "ORDER BY category_name";
@@ -12,7 +18,7 @@
   <li class="category-listing">
     <div>
       <span class="category-color" style="background-color:<?php echo $category_color; ?>"></span>
-      <span id="CategoryName"><?php echo $category_name; ?></span>
+      <span class="CategoryName" data-categoryname="<?php echo $category_name; ?>"><?php echo $category_name; ?></span>
     </div>
     <div>
       <a class="category-edit" data-categoryid="<?php echo $category_id;?>"><img class="" src="css/assets/edit.png" alt="Edit" ></a>
